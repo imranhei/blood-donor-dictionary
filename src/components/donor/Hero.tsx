@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import bloodHero from "./blood_hero.jpeg";
+import bloodHero from "@/assets/blood_hero.jpeg";
 import { Button } from "@/components/ui/button";
 import { Droplet, Search, Users } from "lucide-react";
 
@@ -17,7 +17,7 @@ export default function Hero({ onRegisterClick }: HeroProps) {
         alt="Blood donation hero background"
         fill
         priority
-        className="object-cover opacity-20"
+        className="object-cover opacity-100"
       />
 
       <div className="absolute inset-0 bg-linear-to-br from-red-50/95 via-white/90 to-rose-50/95" />
