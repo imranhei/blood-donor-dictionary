@@ -65,8 +65,9 @@ export default function EditProfileModal({
       const result = await res.json();
 
       if (!result.success) {
-        toast.error(result.message || "Profile not found");
-        onRegisterRedirect();
+        toast.error(
+          result.message || "Profile not found. Please check your information.",
+        );
         return;
       }
 
@@ -164,7 +165,9 @@ export default function EditProfileModal({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle className="text-center text-lg font-semibold">Edit Donor Profile</DialogTitle>
+          <DialogTitle className="text-center text-lg font-semibold">
+            Edit Donor Profile
+          </DialogTitle>
         </DialogHeader>
 
         {!verifiedDonor ? (
@@ -196,13 +199,28 @@ export default function EditProfileModal({
               />
             </div>
 
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700"
-            >
-              {loading ? "Checking..." : "Verify Profile"}
-            </Button>
+            <div className="space-y-3">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-red-600 hover:bg-red-700"
+              >
+                {loading ? "Checking..." : "Verify Profile"}
+              </Button>
+
+              <div className="text-center">
+                <p className="text-sm text-slate-600">Not registered yet?</p>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="mt-2 w-full"
+                  onClick={onRegisterRedirect}
+                >
+                  Register as Donor
+                </Button>
+              </div>
+            </div>
           </form>
         ) : (
           <div className="space-y-6">

@@ -19,7 +19,6 @@ export const donorCreateSchema = z.object({
   bloodGroup: z.enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]),
   address: z.string().min(3, "Address is required").max(300),
   lastDonate: z.string().optional(),
-  available: z.boolean().default(true),
   note: z.string().max(300).optional(),
 });
 

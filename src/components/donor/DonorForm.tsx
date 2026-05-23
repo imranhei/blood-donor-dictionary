@@ -23,7 +23,6 @@ export type DonorFormData = {
   bloodGroup: string;
   address: string;
   lastDonate: string;
-  available: boolean;
   note: string;
 };
 
@@ -42,7 +41,6 @@ const defaultData: DonorFormData = {
   bloodGroup: "",
   address: "",
   lastDonate: "",
-  available: true,
   note: "",
 };
 
@@ -62,7 +60,6 @@ export default function DonorForm({
           bloodGroup: initialData.bloodGroup,
           address: initialData.address,
           lastDonate: initialData.lastDonate || "",
-          available: initialData.available,
           note: initialData.note || "",
         }
       : defaultData,
@@ -162,7 +159,6 @@ export default function DonorForm({
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>Last Donate</Label>
           <Input
@@ -172,18 +168,6 @@ export default function DonorForm({
           />
         </div>
 
-        <div className="flex items-center justify-between rounded-xl border p-2">
-          <div>
-            <Label>Available</Label>
-            <p className="text-sm text-slate-500">Can donate now?</p>
-          </div>
-          <Switch
-            checked={form.available}
-            onCheckedChange={(value) => updateField("available", value)}
-          />
-        </div>
-      </div>
-
       <div className="space-y-2">
         <Label>Note</Label>
         <Textarea
@@ -191,6 +175,15 @@ export default function DonorForm({
           onChange={(e) => updateField("note", e.target.value)}
           placeholder="Optional note"
         />
+      </div>
+
+      <div className="flex gap-2 items-center">
+        <p className="text-smxs text-teal-600">
+          {" "}
+          <span className="text-red-500 pr-1">*</span>
+          Please remember your mobile number and date of birth to edit your
+          profile in future.
+        </p>
       </div>
 
       <Button

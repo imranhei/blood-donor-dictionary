@@ -33,10 +33,6 @@ const donorSchema = new Schema(
       type: String,
       default: "",
     },
-    available: {
-      type: Boolean,
-      default: true,
-    },
     note: {
       type: String,
       default: "",

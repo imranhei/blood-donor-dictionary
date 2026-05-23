@@ -2,6 +2,7 @@ import { connectDB } from "@/lib/db";
 import Donor from "@/models/Donor";
 import { donorCreateSchema } from "@/schemas/donorSchema";
 import { NextResponse } from "next/server";
+import { isDonorAvailable } from "@/lib/donorAvailability";
 
 export const runtime = "nodejs";
 
@@ -36,7 +37,7 @@ export async function GET(request: Request) {
       donorQuery.bloodGroup = bloodGroup;
     }
 
-    const [donors, total, bloodGroupCounts] = await Promise.all([
+    const [rawDonors, total, bloodGroupCounts] = await Promise.all([
       Donor.find(donorQuery).sort({ createdAt: -1 }).skip(skip).limit(limit),
 
       Donor.countDocuments(donorQuery),
@@ -53,6 +54,11 @@ export async function GET(request: Request) {
         },
       ]),
     ]);
+
+    const donors = rawDonors.map((donor) => ({
+      ...donor.toObject(),
+      available: isDonorAvailable(donor.lastDonate),
+    }));
 
     const counts: Record<string, number> = bloodGroupCounts.reduce(
       (
